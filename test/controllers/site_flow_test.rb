@@ -15,7 +15,7 @@ class SiteFlowTest < ActionDispatch::IntegrationTest
     get updates_path
     assert_response :success
 
-    get update_path("april-heat-check-hooks-heartbreak-ska")
+    get update_path("feb-26-adds-no-pressure-hot-mulligan-arms-length")
     assert_response :success
 
     get article_path("best-newer-pop-punk-songs")

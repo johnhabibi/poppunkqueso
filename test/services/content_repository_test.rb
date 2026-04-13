@@ -7,10 +7,10 @@ class ContentRepositoryTest < ActiveSupport::TestCase
   end
 
   test "finders return matching slugs" do
-    update = ContentRepository.find_update("april-heat-check-hooks-heartbreak-ska")
+    update = ContentRepository.find_update("feb-26-adds-no-pressure-hot-mulligan-arms-length")
     article = ContentRepository.find_article("best-newer-pop-punk-songs")
 
-    assert_equal "april-heat-check-hooks-heartbreak-ska", update.slug
+    assert_equal "feb-26-adds-no-pressure-hot-mulligan-arms-length", update.slug
     assert_equal "best-newer-pop-punk-songs", article.slug
   end
 end
