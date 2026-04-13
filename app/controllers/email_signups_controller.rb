@@ -3,14 +3,14 @@ class EmailSignupsController < ApplicationController
     email = params[:email].to_s.strip.downcase
 
     if email.blank? || email.exclude?("@")
-      return render_signup_response(false, "Drop a valid email so we can send the monthly queso drop.")
+      return render_signup_response(false, "Drop a valid email so we can send playlist and merch updates.")
     end
 
     Rails.logger.info(
       "[email_signup] email=#{email} endpoint=#{Rails.application.config.x.email_signup.endpoint.present?} source=#{params[:source].presence || 'unknown'}"
     )
 
-    render_signup_response(true, "You're on the list. Next queso drop lands soon.")
+    render_signup_response(true, "You're in. We'll send updates when new adds and merch drops land.")
   end
 
   private

@@ -4,7 +4,7 @@ class PagesController < ApplicationController
     @updates = ContentRepository.updates.first(3)
     set_meta(
       title: "Pop Punk Queso | The Pop Punk Playlist That Actually Gets Updated",
-      description: "Pop Punk, emo, ska, and indie side quests. Follow the playlist, catch new additions, and join the monthly queso drop."
+      description: "Pop Punk, emo, ska, and indie side quests. Follow the playlist, catch new additions, and get updates on merch drops."
     )
 
     @structured_data = {

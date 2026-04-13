@@ -20,7 +20,7 @@ const message = ref("")
 async function submitForm() {
   if (!email.value.includes("@")) {
     state.value = "error"
-    message.value = "Drop a valid email so we can send the queso drop."
+    message.value = "Drop a valid email so we can send playlist and merch updates."
     return
   }
 
@@ -72,7 +72,7 @@ function csrfToken() {
       :disabled="state === 'loading'"
       class="rounded-full bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:brightness-95 disabled:opacity-70"
     >
-      {{ state === "loading" ? "Submitting..." : "Join the list" }}
+      {{ state === "loading" ? "Submitting..." : "Get updates" }}
     </button>
   </form>
   <p v-if="message" class="mt-3 text-sm" :class="state === 'error' ? 'text-red-700' : 'text-green-700'">

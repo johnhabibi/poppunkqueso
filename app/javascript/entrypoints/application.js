@@ -1,10 +1,8 @@
 import { createApp } from "vue"
-import PlatformSelector from "../components/PlatformSelector.vue"
 import EmailSignup from "../components/EmailSignup.vue"
 import { bindTrackedLinks } from "../lib/analytics"
 
 const components = {
-  PlatformSelector,
   EmailSignup,
 }
 
@@ -31,8 +29,15 @@ function mountVueIslands() {
       props.source = element.dataset.source
     }
 
-    element.innerHTML = ""
-    createApp(component, props).mount(element)
+    const fallbackMarkup = element.innerHTML
+
+    try {
+      element.innerHTML = ""
+      createApp(component, props).mount(element)
+    } catch (error) {
+      console.error(`Failed to mount Vue component: ${componentName}`, error)
+      element.innerHTML = fallbackMarkup
+    }
   })
 }
 

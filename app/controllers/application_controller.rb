@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def set_default_meta
     @meta_title = "Pop Punk Queso | Pop Punk + Emo + Ska Playlist"
-    @meta_description = "Pop Punk Queso is a curated pop punk playlist brand with emo, ska, and indie side quests. Follow updates, save tracks, and join the monthly queso drop."
+    @meta_description = "Pop Punk Queso is a curated pop punk playlist brand with emo, ska, and indie side quests. Follow updates, catch new adds, and stay posted on merch drops."
     @meta_image = helpers.asset_url("pop-punk-queso-logo.jpg")
     @meta_type = "website"
   end
