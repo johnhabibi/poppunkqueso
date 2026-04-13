@@ -100,7 +100,7 @@ function normalizeProperties(properties) {
       value === null
     ) {
       normalized[key] = value
-    })
+    }
   })
 
   return normalized
