@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+EXPECTED_MAJOR="22"
+RUBY_PLATFORM="$(ruby -e 'print RUBY_PLATFORM')"
+CURRENT_NODE="$(node -v 2>/dev/null || true)"
+
+if [[ -n "${CURRENT_NODE}" ]] && [[ "${CURRENT_NODE#v}" != ${EXPECTED_MAJOR}.* ]]; then
+  echo "Warning: detected Node ${CURRENT_NODE}. Expected Node ${EXPECTED_MAJOR}.x (see .nvmrc)." >&2
+fi
+
+if [[ "$(uname -s)" == "Darwin" && "${RUBY_PLATFORM}" == x86_64* ]]; then
+  echo "Installing JS deps under x86_64 to match Ruby/Vite runtime (${RUBY_PLATFORM})"
+  arch -x86_64 npm ci
+else
+  echo "Installing JS deps under native architecture (${RUBY_PLATFORM})"
+  npm ci
+fi
