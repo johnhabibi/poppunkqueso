@@ -10,14 +10,14 @@ class ApplicationController < ActionController::Base
   def set_default_meta
     @meta_title = "Pop Punk Queso | Pop Punk + Emo + Ska Playlist"
     @meta_description = "Pop Punk Queso is a curated pop punk playlist brand with emo, ska, and indie side quests. Follow updates, catch new adds, and stay posted on merch drops."
-    @meta_image = helpers.asset_url("pop-punk-queso-logo.jpg")
+    @meta_image = helpers.asset_url("ppq-share.png")
     @meta_type = "website"
   end
 
   def set_meta(title:, description:, image: nil, type: "website")
     @meta_title = title
     @meta_description = description
-    @meta_image = image || helpers.asset_url("pop-punk-queso-logo.jpg")
+    @meta_image = image || helpers.asset_url("ppq-share.png")
     @meta_type = type
   end
 
