@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -28,6 +32,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -43,6 +51,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -78,6 +90,10 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
