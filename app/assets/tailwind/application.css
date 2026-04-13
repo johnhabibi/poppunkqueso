@@ -1,1 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --color-ppq-paper: #f3fbde;
+  --color-ppq-cream: #fff8de;
+  --color-ppq-ink: #0e0d09;
+  --color-ppq-muted: #4c4a3f;
+  --color-ppq-red: #d22015;
+  --color-ppq-yellow: #e2951a;
+  --color-ppq-blue: #48c6ef;
+  --color-ppq-green: #9de5b3;
+  --color-ppq-crust: #a26816;
+  --font-display: "Bebas Neue", "Impact", sans-serif;
+  --font-sans: "Space Grotesk", "Segoe UI", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    letter-spacing: 0.01em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+  .goop-panel {
+    @apply rounded-3xl border border-ppq-ink/10 bg-white shadow-sm;
+    background-image: radial-gradient(circle at 20% -15%, rgba(72, 198, 239, 0.22), transparent 30%),
+      radial-gradient(circle at 80% -20%, rgba(226, 149, 26, 0.2), transparent 34%);
+  }
+
+  .goop-badge {
+    @apply rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider;
+    background: linear-gradient(100deg, #e2951a 0%, #d22015 85%);
+    color: #fff7ec;
+  }
+
+  .goop-dot-grid {
+    background-image: radial-gradient(rgba(14, 13, 9, 0.12) 1px, transparent 1px);
+    background-size: 10px 10px;
+    background-position: center;
+  }
+}

@@ -1,0 +1,120 @@
+<section class="mx-auto grid max-w-6xl gap-8 px-4 pb-16 pt-12 md:grid-cols-2 md:items-center md:pt-20">
+  <div>
+    <p class="font-display text-sm uppercase tracking-[0.2em] text-ppq-red">Playlist brand hub</p>
+    <h1 class="mt-3 font-display text-4xl uppercase leading-tight md:text-6xl"><%= @home[:headline] %></h1>
+    <p class="mt-5 max-w-xl text-lg leading-8 text-ppq-muted"><%= @home[:subheadline] %></p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <%= link_to "Listen now", listen_path, class: "rounded-full bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:brightness-95" %>
+      <%= link_to "Join the mailing list", "#email-signup", class: "rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide hover:bg-ppq-cream" %>
+    </div>
+
+    <div class="mt-8">
+      <%= render "shared/platform_buttons", stacked: false %>
+    </div>
+  </div>
+
+  <div class="relative">
+    <div class="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-r from-ppq-yellow/30 via-ppq-red/25 to-ppq-blue/25 blur-2xl"></div>
+    <%= image_tag "pop-punk-queso-logo.jpg", alt: "Pop Punk Queso punk jar mascot art", class: "mx-auto w-full max-w-md rounded-3xl border border-ppq-ink/15 bg-white object-cover p-3 shadow-xl" %>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <div class="goop-panel p-6 md:p-8">
+    <%= section_heading(
+      eyebrow: "Play it loud",
+      title: "Embedded Spotify player",
+      body: "Hit play right here, then follow for regular drops."
+    ) %>
+    <div class="overflow-hidden rounded-2xl border border-ppq-ink/10" data-analytics-event="click_embedded_player">
+      <iframe
+        src="https://open.spotify.com/embed/playlist/1QflIwJwCzmeRhomSnSAld?utm_source=generator"
+        width="100%"
+        height="352"
+        frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        title="Pop Punk Queso Spotify Embed"
+      ></iframe>
+    </div>
+    <div class="mt-4 flex flex-wrap items-center gap-3">
+      <p class="text-sm text-ppq-muted">If the embedded player errors, open the playlist directly in Spotify.</p>
+      <%= link_to "Open on Spotify", platform_urls[:spotify], class: platform_link_classes(primary: true), target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <%= section_heading(
+    eyebrow: "What you'll hear",
+    title: "Pop punk core with tasteful chaos",
+    body: "This is the lane: pop punk first, then emo, ska, indie, and skate-punk when it serves the mood."
+  ) %>
+  <ul class="grid gap-3 md:grid-cols-3">
+    <% @home[:what_youll_hear].each do |item| %>
+      <li class="goop-panel p-5 text-sm font-medium leading-6"><%= item %></li>
+    <% end %>
+  </ul>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <%= section_heading(
+    eyebrow: "Why follow this",
+    title: "Because this playlist has taste and a pulse"
+  ) %>
+  <div class="grid gap-4 md:grid-cols-3">
+    <% @home[:why_follow].each do |reason| %>
+      <article class="goop-panel p-6">
+        <h3 class="font-display text-xl uppercase"><%= reason[:title] %></h3>
+        <p class="mt-2 text-sm leading-6 text-ppq-muted"><%= reason[:body] %></p>
+      </article>
+    <% end %>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <%= section_heading(
+    eyebrow: "Current rotation",
+    title: "New adds and heavy repeat tracks",
+    body: "A snapshot of what's spinning now."
+  ) %>
+
+  <div class="grid gap-4 md:grid-cols-2">
+    <% @home[:rotation].each do |track| %>
+      <article class="goop-panel p-5">
+        <p class="text-xs uppercase tracking-wide text-ppq-red">Current rotation</p>
+        <h3 class="mt-1 font-display text-xl uppercase"><%= track[:track] %></h3>
+        <p class="text-sm font-semibold text-ppq-muted"><%= track[:artist] %></p>
+        <p class="mt-2 text-sm leading-6 text-ppq-muted"><%= track[:note] %></p>
+      </article>
+    <% end %>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <%= section_heading(
+    eyebrow: "Updated regularly",
+    title: "Follow update posts, not random feed noise",
+    body: "Every playlist refresh gets documented with featured tracks and add notes."
+  ) %>
+  <div class="grid gap-4 md:grid-cols-3">
+    <% @updates.each do |update| %>
+      <article class="goop-panel p-5">
+        <p class="text-xs uppercase tracking-wide text-ppq-red"><%= update.date.strftime("%b %-d, %Y") %></p>
+        <h3 class="mt-2 font-display text-xl uppercase">
+          <%= link_to update.title, update_path(update.slug), class: "hover:text-ppq-red" %>
+        </h3>
+        <p class="mt-2 text-sm leading-6 text-ppq-muted"><%= update.intro %></p>
+      </article>
+    <% end %>
+  </div>
+  <p class="mt-5 text-sm">
+    <%= link_to "View all updates", updates_path, class: "font-semibold text-ppq-red underline-offset-2 hover:underline" %>
+  </p>
+</section>
+
+<section id="email-signup" class="mx-auto max-w-6xl px-4 pb-16">
+  <%= render "shared/email_signup", source: "home" %>
+</section>

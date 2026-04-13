@@ -1,0 +1,50 @@
+<section class="mx-auto max-w-6xl px-4 pb-16 pt-14">
+  <p class="font-display text-sm uppercase tracking-[0.2em] text-ppq-red">Listen anywhere</p>
+  <h1 class="mt-3 max-w-4xl font-display text-4xl uppercase leading-tight md:text-5xl">One brand, multiple listening channels</h1>
+  <p class="mt-5 max-w-3xl text-lg leading-8 text-ppq-muted">
+    Pop Punk Queso should follow you everywhere.
+    Pick your platform, save the playlist, and keep it in regular rotation.
+  </p>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <div class="grid gap-6 md:grid-cols-2">
+    <article class="goop-panel p-6 md:p-8">
+      <h2 class="font-display text-2xl uppercase">Listen on your platform</h2>
+      <p class="mt-2 text-sm leading-6 text-ppq-muted">
+        Open Pop Punk Queso where you already listen and keep it pinned in your library.
+      </p>
+      <div class="mt-4">
+        <%= render "shared/platform_buttons", stacked: true %>
+      </div>
+    </article>
+
+    <article class="goop-panel p-6 md:p-8">
+      <h2 class="font-display text-2xl uppercase">Smart platform chooser</h2>
+      <p class="mt-2 text-sm leading-6 text-ppq-muted">Quickly pick where you listen today. This can be expanded into tracked smart-links later.</p>
+      <div
+        class="mt-4"
+        data-vue-component="PlatformSelector"
+        data-platforms='<%= {
+          spotify: platform_urls[:spotify],
+          apple_music: platform_urls[:apple_music],
+        }.to_json %>'
+      ></div>
+    </article>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <div class="goop-panel p-6 md:p-8">
+    <h2 class="font-display text-2xl uppercase">Why follow and save?</h2>
+    <ul class="mt-4 grid gap-3 text-sm leading-6 text-ppq-muted md:grid-cols-3">
+      <li class="rounded-xl bg-ppq-paper p-4">You get regular adds, not dormant playlist graveyard energy.</li>
+      <li class="rounded-xl bg-ppq-paper p-4">Every rotation is curated for replay, not trend-chasing.</li>
+      <li class="rounded-xl bg-ppq-paper p-4">You can follow the same brand voice across updates, articles, and future drops.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <%= render "shared/email_signup", source: "listen" %>
+</section>

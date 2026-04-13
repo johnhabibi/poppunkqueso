@@ -1,38 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Poppunkqueso" %></title>
+    <title><%= meta_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= meta_description %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta property="og:type" content="<%= meta_type %>">
+    <meta property="og:title" content="<%= meta_title %>">
+    <meta property="og:description" content="<%= meta_description %>">
+    <meta property="og:image" content="<%= meta_image %>">
+    <meta property="og:url" content="<%= canonical_url %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= meta_title %>">
+    <meta name="twitter:description" content="<%= meta_description %>">
+    <meta name="twitter:image" content="<%= meta_image %>">
+    <link rel="canonical" href="<%= canonical_url %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
 
-    <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <%= vite_client_tag %>
-    <%= vite_javascript_tag 'application' %>
-    <!--
-      If using a TypeScript entrypoint file:
-        vite_typescript_tag 'application'
-
-      If using a .jsx or .tsx entrypoint, add the extension:
-        vite_javascript_tag 'application.jsx'
-
-      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
-    -->
-
+    <% unless Rails.env.test? %>
+      <%= vite_client_tag %>
+      <%= vite_javascript_tag "application" %>
+    <% end %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="bg-ppq-paper text-ppq-ink" data-analytics-endpoint="<%= Rails.application.config.x.analytics_endpoint %>">
+    <div class="min-h-screen bg-[radial-gradient(circle_at_top_left,_#9de5b3,_transparent_35%),radial-gradient(circle_at_bottom_right,_#c9e598,_transparent_42%),radial-gradient(circle_at_20%_80%,_#48c6ef33,_transparent_24%)]">
+      <%= render "shared/nav" %>
+      <% if flash[:notice].present? || flash[:alert].present? %>
+        <div class="mx-auto max-w-6xl px-4 pt-4">
+          <% if flash[:notice].present? %>
+            <p class="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-900"><%= flash[:notice] %></p>
+          <% end %>
+          <% if flash[:alert].present? %>
+            <p class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900"><%= flash[:alert] %></p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <main>
+        <%= yield %>
+      </main>
+
+      <%= render "shared/footer" %>
+    </div>
+
+    <%= json_ld_tag(@structured_data) if @structured_data.present? %>
   </body>
 </html>

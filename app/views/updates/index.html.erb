@@ -1,0 +1,25 @@
+<section class="mx-auto max-w-5xl px-4 pb-16 pt-14">
+  <p class="font-display text-sm uppercase tracking-[0.2em] text-ppq-red">Playlist updates</p>
+  <h1 class="mt-3 font-display text-4xl uppercase leading-tight md:text-5xl">Recent drops, adds, and rotation notes</h1>
+  <p class="mt-5 max-w-3xl text-lg leading-8 text-ppq-muted">
+    Every update includes featured tracks, bands added, and context on what changed.
+  </p>
+</section>
+
+<section class="mx-auto max-w-5xl space-y-4 px-4 pb-16">
+  <% @updates.each do |update| %>
+    <article class="rounded-3xl border border-ppq-ink/10 bg-white p-6 md:p-8">
+      <p class="text-xs uppercase tracking-wide text-ppq-red"><%= update.date.strftime("%B %-d, %Y") %></p>
+      <h2 class="mt-2 font-display text-2xl uppercase md:text-3xl">
+        <%= link_to update.title, update_path(update.slug), class: "hover:text-ppq-red" %>
+      </h2>
+      <p class="mt-3 text-base leading-7 text-ppq-muted"><%= update.intro %></p>
+      <div class="mt-5 flex flex-wrap items-center gap-3 text-sm">
+        <% if update.theme.present? %>
+          <span class="rounded-full bg-ppq-cream px-3 py-1 font-semibold uppercase tracking-wide"><%= update.theme.tr('-', ' ') %></span>
+        <% end %>
+        <%= link_to "Read full update", update_path(update.slug), class: "font-semibold text-ppq-red underline-offset-2 hover:underline" %>
+      </div>
+    </article>
+  <% end %>
+</section>

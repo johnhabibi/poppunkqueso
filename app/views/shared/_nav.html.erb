@@ -1,0 +1,14 @@
+<header class="border-b border-ppq-ink/10 bg-ppq-cream/80 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
+    <%= link_to root_path, class: "inline-flex items-center gap-3" do %>
+      <%= image_tag "pop-punk-queso-logo.jpg", alt: "Pop Punk Queso mascot", class: "h-11 w-11 rounded-full border border-ppq-ink/20 bg-white object-cover p-0.5" %>
+      <span class="font-display text-xl uppercase tracking-wide text-ppq-ink">Pop Punk Queso</span>
+    <% end %>
+    <div class="flex flex-wrap items-center gap-2">
+      <%= nav_link_to "Home", root_path %>
+      <%= nav_link_to "Listen", listen_path %>
+      <%= nav_link_to "Updates", updates_path %>
+      <%= nav_link_to "About", about_path %>
+    </div>
+  </nav>
+</header>

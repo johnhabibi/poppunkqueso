@@ -1,0 +1,29 @@
+<footer class="mt-20 border-t border-ppq-ink/10 bg-white/80">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
+    <section>
+      <h2 class="font-display text-xl uppercase">Pop Punk Queso</h2>
+      <p class="mt-3 text-sm leading-6 text-ppq-muted">
+        Playlist brand hub for pop punk, emo, ska, and indie side quests.
+        Built to outlast platform churn.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="font-display text-lg uppercase">Next Up</h2>
+      <ul class="mt-3 space-y-2 text-sm text-ppq-muted">
+        <li>Merch drops: coming soon</li>
+        <li>Show partnerships: in progress</li>
+        <li>Guest curation slots: soon</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-display text-lg uppercase">Quick Links</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><%= link_to "Listen", listen_path, class: "hover:text-ppq-red" %></li>
+        <li><%= link_to "Updates", updates_path, class: "hover:text-ppq-red" %></li>
+        <li><%= link_to "About", about_path, class: "hover:text-ppq-red" %></li>
+      </ul>
+    </section>
+  </div>
+</footer>

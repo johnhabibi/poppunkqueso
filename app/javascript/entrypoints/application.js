@@ -1,28 +1,45 @@
-// To see this message, add the following to the `<head>` section in your
-// views/layouts/application.html.erb
-//
-//    <%= vite_client_tag %>
-//    <%= vite_javascript_tag 'application' %>
-console.log('Vite ⚡️ Rails')
+import { createApp } from "vue"
+import PlatformSelector from "../components/PlatformSelector.vue"
+import EmailSignup from "../components/EmailSignup.vue"
+import { bindTrackedLinks } from "../lib/analytics"
 
-// If using a TypeScript entrypoint file:
-//     <%= vite_typescript_tag 'application' %>
-//
-// If you want to use .jsx or .tsx, add the extension:
-//     <%= vite_javascript_tag 'application.jsx' %>
+const components = {
+  PlatformSelector,
+  EmailSignup,
+}
 
-console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
+function mountVueIslands() {
+  document.querySelectorAll("[data-vue-component]").forEach((element) => {
+    const componentName = element.dataset.vueComponent
+    const component = components[componentName]
 
-// Example: Load Rails libraries in Vite.
-//
-// import * as Turbo from '@hotwired/turbo'
-// Turbo.start()
-//
-// import ActiveStorage from '@rails/activestorage'
-// ActiveStorage.start()
-//
-// // Import all channels.
-// const channels = import.meta.glob('./**/*_channel.js', { eager: true })
+    if (!component) {
+      return
+    }
 
-// Example: Import a stylesheet in app/frontend/index.css
-// import '~/index.css'
+    const props = {}
+
+    if (element.dataset.platforms) {
+      props.platforms = JSON.parse(element.dataset.platforms)
+    }
+
+    if (element.dataset.endpoint) {
+      props.endpoint = element.dataset.endpoint
+    }
+
+    if (element.dataset.source) {
+      props.source = element.dataset.source
+    }
+
+    element.innerHTML = ""
+    createApp(component, props).mount(element)
+  })
+}
+
+function boot() {
+  mountVueIslands()
+  bindTrackedLinks()
+}
+
+document.addEventListener("turbo:load", boot)
+document.addEventListener("DOMContentLoaded", boot)
