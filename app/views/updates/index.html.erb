@@ -5,7 +5,7 @@
     Every update includes featured tracks, bands added, and context on what changed.
   </p>
   <div class="mt-6 flex flex-wrap gap-3">
-    <%= link_to "Open playlist", platform_urls[:spotify], class: "inline-flex items-center justify-center rounded-full border border-ppq-red bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
+    <%= link_to "Open playlist", platform_urls[:spotify], class: "inline-flex items-center justify-center rounded-full border border-ppq-red bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_open_playlist_cta", analytics_props: { platform: "spotify", placement: "updates_index_header" }.to_json } %>
     <%= link_to "Read article", article_path("best-newer-pop-punk-songs"), class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream" %>
   </div>
 </section>

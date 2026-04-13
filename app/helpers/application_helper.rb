@@ -25,14 +25,14 @@ module ApplicationHelper
     site_url
   end
 
-  def nav_link_to(label, path)
+  def nav_link_to(label, path, data: nil)
     active = current_page?(path)
     classes = [
       "rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-wide transition",
       (active ? "bg-ppq-red text-white" : "text-ppq-ink hover:bg-ppq-cream")
     ]
 
-    link_to label, path, class: classes.join(" ")
+    link_to label, path, class: classes.join(" "), data: data
   end
 
   def platform_link_classes(primary: false)

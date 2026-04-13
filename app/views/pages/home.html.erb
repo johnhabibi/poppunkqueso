@@ -5,13 +5,13 @@
     <p class="mt-5 max-w-xl text-lg leading-8 text-ppq-muted"><%= @home[:subheadline] %></p>
 
     <div class="mt-8 flex flex-wrap gap-3">
-      <%= link_to "Open on Spotify", platform_urls[:spotify], class: "rounded-full bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
+      <%= link_to "Open on Spotify", platform_urls[:spotify], class: "rounded-full bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_open_playlist_cta", analytics_props: { platform: "spotify", placement: "home_hero_primary" }.to_json } %>
       <%= link_to "Read updates", updates_path, class: "rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide hover:bg-ppq-cream" %>
     </div>
 
     <div class="mt-8 flex flex-wrap items-center gap-3">
       <span class="text-xs font-semibold uppercase tracking-wide text-ppq-muted">Also on</span>
-      <%= link_to "Apple Music", platform_urls[:apple_music], class: platform_link_classes, target: "_blank", rel: "noopener", data: { analytics_event: "click_apple_music" } %>
+      <%= link_to "Apple Music", platform_urls[:apple_music], class: platform_link_classes, target: "_blank", rel: "noopener", data: { analytics_event: "click_external_platform_link", analytics_props: { platform: "apple_music", placement: "home_hero_secondary" }.to_json } %>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
       title: "Embedded Spotify player",
       body: "Hit play right here, then follow for regular drops."
     ) %>
-    <div class="overflow-hidden rounded-2xl border border-ppq-ink/10" data-analytics-event="click_embedded_player">
+    <div class="overflow-hidden rounded-2xl border border-ppq-ink/10" data-analytics-event="click_embedded_player" data-analytics-props="<%= { placement: 'home_embed' }.to_json %>">
       <iframe
         src="https://open.spotify.com/embed/playlist/1QflIwJwCzmeRhomSnSAld?utm_source=generator"
         width="100%"

@@ -7,7 +7,7 @@
     <div class="flex flex-wrap items-center gap-2">
       <%= nav_link_to "Home", root_path %>
       <%= nav_link_to "Listen", listen_path %>
-      <%= nav_link_to "Updates", updates_path %>
+      <%= nav_link_to "Updates", updates_path, data: { analytics_event: "click_updates_nav", analytics_props: { placement: "main_nav" }.to_json } %>
       <%= nav_link_to "About", about_path %>
     </div>
   </nav>

@@ -1,5 +1,5 @@
 import { createApp } from "vue"
-import { bindTrackedLinks } from "../lib/analytics"
+import { bindTrackedLinks, trackViewEvents } from "../lib/analytics"
 
 const components = {}
 
@@ -41,6 +41,7 @@ function mountVueIslands() {
 function boot() {
   mountVueIslands()
   bindTrackedLinks()
+  trackViewEvents()
 }
 
 document.addEventListener("turbo:load", boot)

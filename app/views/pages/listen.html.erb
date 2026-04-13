@@ -1,4 +1,4 @@
-<section class="mx-auto max-w-6xl px-4 pb-16 pt-14">
+<section class="mx-auto max-w-6xl px-4 pb-16 pt-14" data-analytics-view="view_listen_page" data-analytics-props="<%= { placement: 'listen_page' }.to_json %>">
   <p class="font-display text-sm uppercase tracking-[0.2em] text-ppq-red">Listen anywhere</p>
   <h1 class="mt-3 max-w-4xl font-display text-4xl uppercase leading-tight md:text-5xl">One brand, multiple listening channels</h1>
   <p class="mt-5 max-w-3xl text-lg leading-8 text-ppq-muted">
@@ -14,8 +14,8 @@
       Open Pop Punk Queso where you already listen and keep it pinned in your library.
     </p>
     <div class="mt-4 flex flex-wrap gap-3">
-      <%= link_to "Open on Spotify", platform_urls[:spotify], class: "inline-flex items-center justify-center rounded-full border border-ppq-red bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
-      <%= link_to "Open on Apple Music", platform_urls[:apple_music], class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream", target: "_blank", rel: "noopener", data: { analytics_event: "click_apple_music" } %>
+      <%= link_to "Open on Spotify", platform_urls[:spotify], class: "inline-flex items-center justify-center rounded-full border border-ppq-red bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_open_playlist_cta", analytics_props: { platform: "spotify", placement: "listen_primary_cta" }.to_json } %>
+      <%= link_to "Open on Apple Music", platform_urls[:apple_music], class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream", target: "_blank", rel: "noopener", data: { analytics_event: "click_external_platform_link", analytics_props: { platform: "apple_music", placement: "listen_primary_cta" }.to_json } %>
     </div>
     <p class="mt-3 text-xs font-medium uppercase tracking-wide text-ppq-muted">Opens in your music app</p>
   </article>
