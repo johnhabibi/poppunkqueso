@@ -29,8 +29,7 @@
   - `config/content/articles.yml`
 - Content loading layer: `app/services/content_repository.rb`
 - Interactive islands:
-  - `app/javascript/components/PlatformSelector.vue`
-  - `app/javascript/components/EmailSignup.vue`
+  - None currently; keep Vue usage isolated if interactive islands are reintroduced.
 - Analytics abstraction:
   - `app/javascript/lib/analytics.js`
   - `app/controllers/analytics_events_controller.rb`

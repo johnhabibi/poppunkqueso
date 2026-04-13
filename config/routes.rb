@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   get "/articles/:slug", to: "articles#show", as: :article
 
-  post "/email_signups", to: "email_signups#create"
   post "/track", to: "analytics_events#create"
 
   get "/sitemap.xml", to: "sitemaps#show", defaults: { format: :xml }

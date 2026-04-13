@@ -1,7 +1,6 @@
 const ALLOWED_EVENTS = new Set([
   "click_spotify",
   "click_apple_music",
-  "email_signup_submit",
   "click_embedded_player",
 ])
 

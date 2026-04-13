@@ -1,10 +1,7 @@
 import { createApp } from "vue"
-import EmailSignup from "../components/EmailSignup.vue"
 import { bindTrackedLinks } from "../lib/analytics"
 
-const components = {
-  EmailSignup,
-}
+const components = {}
 
 function mountVueIslands() {
   document.querySelectorAll("[data-vue-component]").forEach((element) => {

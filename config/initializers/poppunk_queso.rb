@@ -6,7 +6,5 @@ Rails.application.configure do
     apple_music: ENV.fetch("APPLE_MUSIC_PLAYLIST_URL", "https://music.apple.com/us/playlist/pop-punk-queso/pl.u-BNA6rvVsv97Ea")
   }
 
-  config.x.email_signup = ActiveSupport::OrderedOptions.new
-  config.x.email_signup.endpoint = ENV.fetch("EMAIL_SIGNUP_ENDPOINT", "")
   config.x.analytics_endpoint = ENV.fetch("ANALYTICS_ENDPOINT", "/track")
 end

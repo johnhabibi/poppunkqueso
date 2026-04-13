@@ -6,7 +6,7 @@
   </p>
   <div class="mt-6 flex flex-wrap gap-3">
     <%= link_to "Open playlist", platform_urls[:spotify], class: "inline-flex items-center justify-center rounded-full border border-ppq-red bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
-    <%= link_to "Get updates", root_path(anchor: "email-signup"), class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream" %>
+    <%= link_to "Read article", article_path("best-newer-pop-punk-songs"), class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream" %>
   </div>
 </section>
 
@@ -35,10 +35,10 @@
 <section class="mx-auto max-w-5xl px-4 pb-16">
   <div class="goop-panel p-6 md:p-8">
     <h2 class="font-display text-2xl uppercase">Want these drops in real time?</h2>
-    <p class="mt-2 text-sm leading-6 text-ppq-muted">Follow the playlist and get update alerts when new adds and merch drops land.</p>
+    <p class="mt-2 text-sm leading-6 text-ppq-muted">Follow the playlist and check update posts for fresh adds, rotation notes, and merch announcements.</p>
     <div class="mt-4 flex flex-wrap gap-3">
       <%= link_to "Open on Spotify", platform_urls[:spotify], class: "inline-flex items-center justify-center rounded-full border border-ppq-red bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
-      <%= link_to "Get updates", root_path(anchor: "email-signup"), class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream" %>
+      <%= link_to "Read all updates", updates_path, class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream" %>
     </div>
   </div>
 </section>

@@ -6,7 +6,7 @@
 
     <div class="mt-8 flex flex-wrap gap-3">
       <%= link_to "Open on Spotify", platform_urls[:spotify], class: "rounded-full bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
-      <%= link_to "Get updates", "#email-signup", class: "rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide hover:bg-ppq-cream" %>
+      <%= link_to "Read updates", updates_path, class: "rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide hover:bg-ppq-cream" %>
     </div>
 
     <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -116,6 +116,15 @@
   </p>
 </section>
 
-<section id="email-signup" class="mx-auto max-w-6xl px-4 pb-16">
-  <%= render "shared/email_signup", source: "home" %>
+<section class="mx-auto max-w-6xl px-4 pb-16">
+  <div class="goop-panel p-6 md:p-8">
+    <h2 class="font-display text-2xl uppercase">Stay in the loop</h2>
+    <p class="mt-2 max-w-2xl text-sm leading-6 text-ppq-muted">
+      Follow the playlist for fresh adds and check update posts for rotation notes and future merch drop announcements.
+    </p>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <%= link_to "Open on Spotify", platform_urls[:spotify], class: "inline-flex items-center justify-center rounded-full border border-ppq-red bg-gradient-to-r from-ppq-yellow to-ppq-red px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:brightness-95", target: "_blank", rel: "noopener", data: { analytics_event: "click_spotify" } %>
+      <%= link_to "Read updates", updates_path, class: "inline-flex items-center justify-center rounded-full border border-ppq-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ppq-ink transition hover:bg-ppq-cream" %>
+    </div>
+  </div>
 </section>

@@ -29,13 +29,6 @@ class SiteFlowTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "<urlset"
   end
 
-  test "email signup placeholder accepts valid email" do
-    post email_signups_path, params: { email: "fan@example.com", source: "test" }, as: :json
-
-    assert_response :success
-    assert_equal true, response.parsed_body["success"]
-  end
-
   test "analytics endpoint accepts known event" do
     post "/track", params: { event: "click_spotify", properties: { source: "test" } }, as: :json
 

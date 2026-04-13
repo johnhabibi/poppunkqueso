@@ -1,21 +1,19 @@
 # Pop Punk Queso
 
-Pop Punk Queso is a Rails-first, server-rendered music brand hub that started as a Spotify playlist and now supports platform-neutral listening, update posts, SEO content, and portable audience capture.
+Pop Punk Queso is a Rails-first, server-rendered music brand hub that started as a Spotify playlist and now supports platform-neutral listening, update posts, and SEO content.
 
 ## Stack and Rationale
 - Rails 8 + PostgreSQL: durable conventions, SEO-friendly server rendering, low maintenance complexity.
 - Tailwind CSS: fast, consistent design system primitives with minimal CSS debt.
-- Vite + Vue 3 islands: lightweight interactivity only where UX benefits (platform selector and email signup states).
+- Vite + Vue 3 islands: lightweight interactivity only where UX benefits.
 - Content-first architecture: YAML-driven updates/articles keeps v1 simple without building a CMS.
 
 ## Features in v1
 - Pages: Home, About, Listen, Updates index/show, Article template, custom 404.
 - File-driven content layer for updates/articles/home rotation.
-- Email signup handler placeholder (`POST /email_signups`) with JSON + HTML fallback.
 - Analytics abstraction with event names:
   - `click_spotify`
   - `click_apple_music`
-  - `email_signup_submit`
   - `click_embedded_player`
 - SEO basics: page titles, meta descriptions, Open Graph, Twitter cards, semantic headings, sitemap, robots.
 
@@ -78,7 +76,6 @@ bin/setup-js
 3. Add tracking event to:
 - `app/javascript/lib/analytics.js` allowlist
 - `app/controllers/analytics_events_controller.rb` allowlist
-4. If needed, extend `PlatformSelector.vue` options.
 
 ## Analytics Wiring
 - Frontend tracking utility: `app/javascript/lib/analytics.js`.
@@ -89,14 +86,47 @@ bin/setup-js
 - `SITE_URL`
 - `SPOTIFY_PLAYLIST_URL`
 - `APPLE_MUSIC_PLAYLIST_URL`
-- `EMAIL_SIGNUP_ENDPOINT`
 - `ANALYTICS_ENDPOINT`
 
 ## Deployment Notes
 - Set `SITE_URL` and platform URLs in production.
 - Ensure `sitemap.xml` is reachable and robots allows crawling.
-- For real email capture, replace placeholder in `EmailSignupsController` with provider API wiring (Buttondown/ConvertKit/Mailchimp).
 - For production analytics, wire a provider script and/or persist events server-side.
+
+### Render Deploy (Recommended)
+This repo includes a Render blueprint at `render.yaml`.
+
+1. Push your branch to GitHub.
+2. In Render: `New` → `Blueprint` → select this repo.
+3. Render will create:
+   - `poppunkqueso-web` (Rails web service)
+   - `poppunkqueso-db` (PostgreSQL)
+4. In web service environment, set:
+   - `SITE_URL=https://<your-domain>`
+   - `SPOTIFY_PLAYLIST_URL=...`
+   - `APPLE_MUSIC_PLAYLIST_URL=...`
+5. Run migration once after first deploy:
+```bash
+bundle exec rails db:migrate
+```
+
+### Porkbun DNS Setup (for Render)
+After adding your custom domain in Render, set DNS in Porkbun:
+
+- Root/apex domain (`poppunkqueso.com`):
+  - Type: `A`
+  - Host: `@`
+  - Answer: `216.24.57.1`
+- `www` subdomain:
+  - Type: `CNAME`
+  - Host: `www`
+  - Answer: `<your-render-service>.onrender.com`
+
+Then in Render custom domains:
+1. Add `poppunkqueso.com`
+2. Add `www.poppunkqueso.com`
+3. Set redirect preference (usually `www` → apex or apex → `www`)
+4. Wait for SSL issuance and DNS propagation.
 
 ## Test and Lint
 ```bash

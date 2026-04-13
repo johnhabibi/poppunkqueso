@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: poppunkqueso-web
+    runtime: ruby
+    plan: starter
+    region: oregon
+    buildCommand: |
+      bundle install
+      npm ci
+      bundle exec rails assets:precompile
+    startCommand: bundle exec puma -C config/puma.rb
+    healthCheckPath: /up
+    autoDeploy: true
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "true"
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: NODE_VERSION
+        value: "22.12.0"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: poppunkqueso-db
+          property: connectionString
+      - key: SECRET_KEY_BASE
+        generateValue: true
+
+databases:
+  - name: poppunkqueso-db
+    plan: starter
+    region: oregon
