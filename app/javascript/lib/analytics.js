@@ -68,6 +68,15 @@ export function trackViewEvents() {
   })
 }
 
+export function identifyAnonymousUser() {
+  const anonId = document.body?.dataset.analyticsAnonId
+  if (!anonId || !window.posthog) {
+    return
+  }
+
+  window.posthog.identify(anonId)
+}
+
 function parseProps(rawValue) {
   if (!rawValue) {
     return {}
