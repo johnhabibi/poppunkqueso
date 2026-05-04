@@ -6,7 +6,8 @@
     "npm": ">=10"
   },
   "scripts": {
-    "setup:js": "bash ./bin/setup-js"
+    "setup:js": "bash ./bin/setup-js",
+    "test:js": "PATH=\"/usr/local/opt/node@22/bin:/opt/homebrew/opt/node@22/bin:$PATH\" node --test test/javascript/*.test.mjs"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.4",

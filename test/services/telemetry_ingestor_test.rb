@@ -65,4 +65,32 @@ class TelemetryIngestorTest < ActiveSupport::TestCase
     assert_equal :invalid_properties, result.error
     assert_nil client.payload
   end
+
+  test "rejects non-primitive values even for allowed properties" do
+    client = ClientStub.new
+    request = RequestStub.new(nil, nil)
+
+    result = Telemetry::Ingestor.new(request: request, distinct_id: "anon-123", client: client).call(
+      event_name: "click_open_playlist_cta",
+      properties: { "platform" => [ "spotify" ], "placement" => "hero" }
+    )
+
+    refute result.ok?
+    assert_equal :invalid_properties, result.error
+    assert_nil client.payload
+  end
+
+  test "normalizes string properties before capture" do
+    client = ClientStub.new
+    request = RequestStub.new(nil, nil)
+
+    result = Telemetry::Ingestor.new(request: request, distinct_id: "anon-123", client: client).call(
+      event_name: "click_spotify",
+      properties: { "placement" => "  #{"x" * 220}  " }
+    )
+
+    assert result.ok?
+    assert_equal 200, client.payload[:properties]["placement"].length
+    assert_match(/\Ax+\z/, client.payload[:properties]["placement"])
+  end
 end

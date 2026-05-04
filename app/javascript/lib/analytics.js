@@ -21,10 +21,6 @@ export function trackEvent(name, properties = {}) {
     window.plausible(name, { props: payload })
   }
 
-  if (window.posthog) {
-    window.posthog.capture(name, payload)
-  }
-
   if (window.gtag) {
     window.gtag("event", name, payload)
   }
@@ -66,15 +62,6 @@ export function trackViewEvents() {
     element.dataset.analyticsViewTracked = "true"
     trackEvent(element.dataset.analyticsView, parseProps(element.dataset.analyticsProps))
   })
-}
-
-export function identifyAnonymousUser() {
-  const anonId = document.body?.dataset.analyticsAnonId
-  if (!anonId || !window.posthog) {
-    return
-  }
-
-  window.posthog.identify(anonId)
 }
 
 function parseProps(rawValue) {

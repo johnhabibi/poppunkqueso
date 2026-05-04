@@ -3,6 +3,14 @@ set -euo pipefail
 
 EXPECTED_MAJOR="22"
 RUBY_PLATFORM="$(ruby -e 'print RUBY_PLATFORM')"
+
+for NODE_PREFIX in /usr/local/opt/node@22 /opt/homebrew/opt/node@22; do
+  if [[ -x "${NODE_PREFIX}/bin/node" ]]; then
+    export PATH="${NODE_PREFIX}/bin:${PATH}"
+    break
+  fi
+done
+
 CURRENT_NODE="$(node -v 2>/dev/null || true)"
 
 if [[ -n "${CURRENT_NODE}" ]] && [[ "${CURRENT_NODE#v}" != ${EXPECTED_MAJOR}.* ]]; then

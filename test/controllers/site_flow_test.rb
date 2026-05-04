@@ -1,6 +1,8 @@
 require "test_helper"
 
 class SiteFlowTest < ActionDispatch::IntegrationTest
+  parallelize(workers: 1)
+
   test "core pages render" do
     get root_path
     assert_response :success
@@ -37,6 +39,49 @@ class SiteFlowTest < ActionDispatch::IntegrationTest
 
     assert_response :accepted
     assert_includes response.headers["Set-Cookie"], "ppq_anon_id="
+  end
+
+  test "layout does not load PostHog browser capture or identify wiring" do
+    get root_path
+
+    assert_response :success
+    assert_no_match(/posthog\.init/, response.body)
+    assert_no_match(/capture_pageview/, response.body)
+    assert_no_match(/capture_pageleave/, response.body)
+    assert_no_match(/data-analytics-anon-id/, response.body)
+  end
+
+  test "analytics endpoint forwards accepted event through telemetry client" do
+    captured = []
+    client = Class.new do
+      define_method(:initialize) do |captures|
+        @captures = captures
+      end
+
+      define_method(:capture) do |event:, distinct_id:, properties:|
+        @captures << {
+          event: event,
+          distinct_id: distinct_id,
+          properties: properties
+        }
+        true
+      end
+    end.new(captured)
+
+    original_new = Telemetry::PosthogClient.method(:new)
+    Telemetry::PosthogClient.define_singleton_method(:new) { client }
+
+    post "/track", params: { event: "click_spotify", properties: { placement: "test" } }, as: :json
+
+    assert_response :accepted
+    assert_equal 1, captured.length
+    assert_equal "click_spotify", captured.first[:event]
+    assert_match(/\A[0-9a-f-]{36}\z/, captured.first[:distinct_id])
+    assert_equal "test", captured.first[:properties]["placement"]
+  ensure
+    Telemetry::PosthogClient.define_singleton_method(:new) do |*args, **kwargs, &block|
+      original_new.call(*args, **kwargs, &block)
+    end
   end
 
   test "analytics endpoint rejects unknown event" do

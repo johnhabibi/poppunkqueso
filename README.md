@@ -85,16 +85,21 @@ bin/setup-js
 - `app/services/telemetry/schema.rb` event/property allowlist
 
 ## Analytics Wiring
+Canonical event path: browser -> Rails `POST /track` -> PostHog.
+
 - Frontend tracking utility: `app/javascript/lib/analytics.js`
   - Tracks link clicks from `data-analytics-event`
   - Accepts JSON props from `data-analytics-props`
   - Tracks page-view style events from `data-analytics-view`
+  - Keeps optional Plausible and gtag sinks when those globals are present
+  - Does not call `window.posthog.capture` or `window.posthog.identify`
 - Backend ingestion endpoint: `POST /track` (`AnalyticsEventsController#create`).
 - Validation and event contract: `app/services/telemetry/schema.rb`.
 - Ingest/enrichment: `app/services/telemetry/ingestor.rb`.
 - PostHog delivery client: `app/services/telemetry/posthog_client.rb`.
-- Anonymous identity uses signed permanent cookie `ppq_anon_id` (no user PII).
+- Anonymous identity uses signed permanent cookie `ppq_anon_id` for the server-side PostHog `distinct_id`.
 - Allowed properties are strict per event; unknown/blocked keys return `422`.
+- PostHog browser autocapture, pageview/pageleave, feature flags, experiments, and session replay are not used.
 
 ### Telemetry Request Contract
 - Input JSON: `{ "event": "event_name", "properties": { ... } }`
@@ -108,11 +113,20 @@ bin/setup-js
   - `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`
   - `content_slug` (when present)
 
+### Analytics Privacy Rules
+- Do not send PII.
+- Do not send form values.
+- Do not send email addresses, names, messages, body text, or free-form user text.
+- Do not send raw query strings.
+- Keep events explicit, allowlisted, and low volume.
+- Keep properties primitive and listed in `app/services/telemetry/schema.rb`.
+
 ### PostHog Setup
 1. Set:
    - `TELEMETRY_ENABLED=true`
    - `POSTHOG_HOST=https://us.i.posthog.com` (or your PostHog host)
    - `POSTHOG_PROJECT_API_KEY=<project key>`
+   - `ANALYTICS_ENDPOINT=/track`
 2. Deploy.
 3. Click tracked links/pages and verify events in PostHog Live Events.
 

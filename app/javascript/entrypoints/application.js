@@ -1,5 +1,5 @@
 import { createApp } from "vue"
-import { bindTrackedLinks, identifyAnonymousUser, trackViewEvents } from "../lib/analytics"
+import { bindTrackedLinks, trackViewEvents } from "../lib/analytics"
 
 const components = {}
 
@@ -40,7 +40,6 @@ function mountVueIslands() {
 
 function boot() {
   mountVueIslands()
-  identifyAnonymousUser()
   bindTrackedLinks()
   trackViewEvents()
 }
